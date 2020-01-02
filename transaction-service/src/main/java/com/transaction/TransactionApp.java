@@ -1,7 +1,5 @@
 package com.transaction;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 import io.swagger.v3.oas.integration.SwaggerConfiguration;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -13,9 +11,6 @@ import java.util.stream.Stream;
 import javax.servlet.ServletContext;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.ext.ContextResolver;
-import javax.ws.rs.ext.Provider;
-import org.apache.commons.validator.routines.IBANValidator;
 import org.glassfish.jersey.server.ResourceConfig;
 
 @ApplicationPath("/")
@@ -46,6 +41,7 @@ public class TransactionApp extends ResourceConfig {
     OpenApiResource openApiResource = new OpenApiResource();
     openApiResource.setOpenApiConfiguration(oasConfig);
     register(openApiResource);
+    register(new InjectionBinder());
     packages("com.transaction.controller");
   }
 }

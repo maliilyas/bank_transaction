@@ -1,10 +1,10 @@
 package com.transaction.controller;
 
 import static com.customer.portal.db.tables.CustomerAccount.CUSTOMER_ACCOUNT;
+import static com.transaction.db.DbUtil.fetchCustomer;
 import static net.logstash.logback.argument.StructuredArguments.kv;
 
 import com.google.common.base.Strings;
-import com.transaction.db.DbHandler;
 import com.transaction.model.CheckBalanceRequest;
 
 import com.transaction.model.CheckBalanceResponse;
@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
 import org.jooq.Record;
 
-@Path("/checkbalance")
+@Path("/check-balance")
 @Produces({"application/json"})
 @Slf4j
 public class BalanceController {
@@ -30,27 +30,25 @@ public class BalanceController {
   @POST
   @Operation(summary = "Check the balance of a customer.",
       tags = {"balance"},
+      operationId = "checkBalance",
       description = "Returns an information of customer's balance if customer is found.",
       responses = {
           @ApiResponse(description = "Customer's balance information", content = @Content(
               schema = @Schema(implementation = CheckBalanceResponse.class)
           )),
           @ApiResponse(responseCode = "400", description = "Bad Request."),
-          @ApiResponse(responseCode = "404", description = "Customer Not found or wrong credential(s).")
+          @ApiResponse(responseCode = "404", description = "Customer not found or wrong credential(s).")
       })
   public Response checkbalance(
       @RequestBody(description = "The request body for checking the balance", required = true) CheckBalanceRequest body) {
 
     log.info("Request for check balance.", kv("request", body));
-    if (!isValidRequestBody(body)) {
-      return generateErrorResponse("Bad Request.", 400);
+    final String isValidOrError = isValidRequestBody(body);
+    if (! "true".equals(isValidOrError)) {
+      return generateErrorResponse("Bad Request: " + isValidOrError, 400);
     }
 
-    List<Record> records = DbHandler.getInstance().dbContext().select().from(CUSTOMER_ACCOUNT)
-        .where(
-            CUSTOMER_ACCOUNT.USER_NAME.eq(body.getUsername())
-                .and(CUSTOMER_ACCOUNT.PASSWORD.eq(body.getPin()))
-                .and(CUSTOMER_ACCOUNT.IBAN.eq(body.getIban()))).fetch();
+    List<Record> records = fetchCustomer(body.getUsername(), body.getPin(), body.getIban());
     if (records.isEmpty()) {
       return generateErrorResponse("Customer credential(s) wrong or customer not found.", 404);
     }
@@ -68,9 +66,9 @@ public class BalanceController {
    */
   Response generateOkResponse(final Record record) {
     CheckBalanceResponse checkBalanceResponse = new CheckBalanceResponse();
-    checkBalanceResponse.setBalance(record.getValue(CUSTOMER_ACCOUNT.BALANCE));
-    checkBalanceResponse.setUsername(record.getValue(CUSTOMER_ACCOUNT.USER_NAME));
-    checkBalanceResponse.setCurrency_type(record.getValue(CUSTOMER_ACCOUNT.CURRENCY_TYPE));
+    checkBalanceResponse.setBalance(record.get(CUSTOMER_ACCOUNT.BALANCE));
+    checkBalanceResponse.setUsername(record.get(CUSTOMER_ACCOUNT.USER_NAME));
+    checkBalanceResponse.setCurrency_type(record.get(CUSTOMER_ACCOUNT.CURRENCY_TYPE));
     return Response.status(200)
         .entity(checkBalanceResponse).build();
 
@@ -82,31 +80,28 @@ public class BalanceController {
         .entity(msg).build();
   }
 
-  boolean isValidRequestBody(final CheckBalanceRequest requestBody) {
+  String isValidRequestBody(final CheckBalanceRequest requestBody) {
     if (requestBody == null) {
-      return false;
+      return "Request Body is empty.";
     }
 
     if (Strings.isNullOrEmpty(requestBody.getUsername())) {
-      return false;
+      return "Username can not be null or empty.";
     }
 
     if (Strings.isNullOrEmpty(requestBody.getPin())) {
-      return false;
+      return "Password can not be null or empty.";
     }
 
     if (Strings.isNullOrEmpty(requestBody.getIban())) {
-        return false;
+        return "Iban can not be null or empty.";
     }
 
     if (! new IBANCheckDigit().isValid(requestBody.getIban())) {
-      return false;
+      return "Not a valid German Iban.";
     }
 
-    if (requestBody.getCustomerId() == null) {
-      return false;
-    }
-    return true;
+    return "true";
   }
 }
 

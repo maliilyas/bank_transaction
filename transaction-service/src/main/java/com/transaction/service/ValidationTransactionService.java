@@ -2,7 +2,7 @@ package com.transaction.service;
 
 import java.util.Date;
 
-public interface ValidationTransactionRequest {
+public interface ValidationTransactionService {
 
   /**
    * Check whether Customer has an account in Homework Bank.
@@ -21,25 +21,7 @@ public interface ValidationTransactionRequest {
   boolean isValidToIban(final String toIBan);
 
   /**
-   * Checks whether the customer has enough balance into account.
-   * @param amount the amount to be transacted.
-   * @param username the username of the customer.
-   * @param pin the password of the customer.
-   * @param fromIban the iban of the customer.
-   * @return
-   */
-  boolean isTransactionPossible(final Double amount, final String username, final String pin,
-      final String fromIban);
-
-  /**
-   * Checks whether the currency is supported.
-   *
-   * @param currencyCode the iso-4217 currency code.
-   */
-  boolean isCurrencySupported(final String currencyCode);
-
-  /**
-   * Checks whether the Date is valid. Only now and future transactions are valid.
+   * Checks whether the Date is valid. Only future transactions are valid.
    *
    * @param transactionDate the transaction date.
    */

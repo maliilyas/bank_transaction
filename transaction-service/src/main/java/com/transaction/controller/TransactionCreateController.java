@@ -1,13 +1,10 @@
 package com.transaction.controller;
 
-
 import static com.google.common.base.Strings.isNullOrEmpty;
-import static java.lang.Thread.sleep;
 import static net.logstash.logback.argument.StructuredArguments.kv;
 
 import com.transaction.db.DbUtil;
 import com.transaction.db.TransactionManager;
-import com.transaction.model.CheckBalanceResponse;
 import com.transaction.model.CreateTransactionRequest;
 import com.transaction.model.CreateTransactionResponse;
 import com.transaction.service.ValidationTransactionService;
@@ -30,15 +27,15 @@ import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
 /**
  * Controller for the transaction handling
  */
-@Path("/transaction")
+@Path("/create-transaction")
 @Produces({"application/json"})
 @Slf4j
-public class TransactionController {
+public class TransactionCreateController {
 
   private final ValidationTransactionService validationTransactionService;
 
   @Inject
-  public TransactionController(final ValidationTransactionService validationTransactionService) {
+  public TransactionCreateController(final ValidationTransactionService validationTransactionService) {
     this.validationTransactionService = validationTransactionService;
   }
 
@@ -49,7 +46,7 @@ public class TransactionController {
       description = "Returns transaction creation message and time.",
       responses = {
           @ApiResponse(description = "Transaction's information", content = @Content(
-              schema = @Schema(implementation = CheckBalanceResponse.class)
+              schema = @Schema(implementation = CreateTransactionResponse.class)
           )),
           @ApiResponse(responseCode = "400", description = "Bad Request."),
           @ApiResponse(responseCode = "404", description = "Customer Not found or wrong credential(s).")
@@ -69,7 +66,7 @@ public class TransactionController {
 
     if (!validationTransactionService.isValidDate(body.getTransactionDate())) {
       return generateNon201Response(
-          "Transaction Date is wrong, only now and future transactions are supported.", 200);
+          "Transaction Date is wrong, only future transactions are supported.", 200);
     }
 
     long transactionId = DbUtil.createTransaction(body);
@@ -119,9 +116,12 @@ public class TransactionController {
       return "Iban can not be null or empty.";
     }
 
-    if (!new IBANCheckDigit().isValid(requestBody.getToIban()) || !new IBANCheckDigit()
-        .isValid(requestBody.getFromIban())) {
-      return "Not a valid German Iban.";
+    if (!new IBANCheckDigit().isValid(requestBody.getToIban()) ) {
+      return "Not a valid German Receiver Iban.";
+    }
+
+    if (!new IBANCheckDigit().isValid(requestBody.getFromIban()) ) {
+      return "Not a valid German Sender Iban.";
     }
 
     if (requestBody.getAmount() == null) {
@@ -133,5 +133,4 @@ public class TransactionController {
     }
     return "true";
   }
-
 }

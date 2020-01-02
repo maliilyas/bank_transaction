@@ -2,7 +2,6 @@ package com.transaction.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,15 +16,12 @@ import lombok.NoArgsConstructor;
 @Schema(description = "The Request body for Check Balance.")
 public class CheckBalanceRequest {
 
-  @JsonProperty(required = true)
-  private  String username;
+  @Schema(description = "The username of the customer.")
+  private String username;
 
-  @JsonProperty(required = true)
-  private  String pin;
+  @Schema(description = "The password of the customer.")
+  private String pin;
 
-  @JsonProperty(required = true)
-  private  String iban;
-
-  @JsonProperty(required = true)
-  private  Integer customerId;
+  @Schema(description = "The iban of customer.")
+  private String iban;
 }

@@ -2,7 +2,6 @@ package com.transaction.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,13 +16,13 @@ import lombok.NoArgsConstructor;
 @Schema(description = "The Response body for Check Balance.")
 public class CheckBalanceResponse {
 
-  @JsonProperty
+  @Schema(description = "The username of the customer.")
   private  String username;
 
-  @JsonProperty
+  @Schema(description = "The remaining balance in the account of customer.")
   private  Double balance;
 
-  @JsonProperty
+  @Schema(description = "The currency type ISO-4217 in three or less alphabets.")
   private  String currency_type;
 
 }

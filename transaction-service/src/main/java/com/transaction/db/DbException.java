@@ -5,4 +5,8 @@ public class DbException extends RuntimeException {
     super(msg, t);
   }
 
+  public DbException(final String msg) {
+    super(msg);
+  }
+
 }

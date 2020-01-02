@@ -3,11 +3,11 @@ package com.transaction.configuration;
 import java.io.IOException;
 import java.util.Properties;
 
-public class TransactionProperties {
+public class TransactionServiceProperties {
   private static final String CONGIG_PROP_FILENAME = "/config.properties";
   private static Properties properties;
 
-  private TransactionProperties() {
+  private TransactionServiceProperties() {
     // do nothing
   }
   /**
@@ -17,7 +17,7 @@ public class TransactionProperties {
     if (properties == null) {
       try {
         properties = new Properties();
-        properties.load(TransactionProperties.class.getResourceAsStream(CONGIG_PROP_FILENAME));
+        properties.load(TransactionServiceProperties.class.getResourceAsStream(CONGIG_PROP_FILENAME));
       } catch (IOException ex) {
         throw new ConfigurationException("Error fetching properties.", ex);
       }
@@ -41,9 +41,6 @@ public class TransactionProperties {
     return properties().getProperty("db.password");
   }
 
-  public static String getJooqSqlDialect() {
-    return properties().getProperty("jooq.sql.dialect");
-  }
 
   public static int getHikariPoolMaxSize() {
     return Integer.parseInt(properties().getProperty("db.pool.maxsize"));

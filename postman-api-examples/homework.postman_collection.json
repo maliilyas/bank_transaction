@@ -1,0 +1,117 @@
+{
+	"info": {
+		"_postman_id": "93e206f7-fc86-4ddc-86d8-f48696502574",
+		"name": "homework",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Check Balance",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"username\":\"goethe\",\n\"pin\":\"faust123\",\n\"iban\":\"DE12500105170648489890\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8989/check-balance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"check-balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Transaction",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"username\":\"aliilyas\",\n\"pin\":\"ma420\",\n \"fromIban\":\"DE75512108001245126199\",\n\"toIban\":\"DE12500105170648489890\",\n \"amount\":1000000,\n\"transactionMessage\":\"Paying to Goethe\",\n  \"transactionReference\":\"12345678\",\n  \"transactionDate\":\"2020-01-03\"\n\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8989/create-transaction",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"create-transaction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Open Api Specs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8989/openapi.json",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"openapi.json"
+					]
+				},
+				"description": "For the open api specification for the transaction service"
+			},
+			"response": []
+		},
+		{
+			"name": "Transaction Status",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"iban\":\"DE75512108001245126199\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8989/status-transaction",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"status-transaction"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
