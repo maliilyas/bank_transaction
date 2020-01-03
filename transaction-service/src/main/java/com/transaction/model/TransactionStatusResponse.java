@@ -15,15 +15,15 @@ import lombok.NoArgsConstructor;
 @Schema(description = "The Response body for Transaction Status Response.")
 public class TransactionStatusResponse {
 
-  @Schema(description = "The transaction id.")
+  @Schema(description = "The transaction id.", required = true)
   private Long id;
 
-  @Schema(description = "The message explaining the transaction.")
+  @Schema(description = "The message explaining the transaction.", required = true)
   private String msg;
 
-  @Schema(description = "The iban of sender.")
+  @Schema(description = "The iban of sender.", required = true)
   private String toIban;
 
-  @Schema(description = "The status of the transaction.")
+  @Schema(description = "The status of the transaction.", required = true)
   private String transactionStatus;
 }

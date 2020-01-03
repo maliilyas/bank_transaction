@@ -16,13 +16,13 @@ import lombok.NoArgsConstructor;
 @Schema(description = "The Response body for Check Balance.")
 public class CheckBalanceResponse {
 
-  @Schema(description = "The username of the customer.")
+  @Schema(description = "The username of the customer.", required = true)
   private  String username;
 
-  @Schema(description = "The remaining balance in the account of customer.")
+  @Schema(description = "The remaining balance in the account of customer.", required = true)
   private  Double balance;
 
-  @Schema(description = "The currency type ISO-4217 in three or less alphabets.")
+  @Schema(description = "The currency type ISO-4217 in three or less alphabets.", required = true)
   private  String currency_type;
 
 }

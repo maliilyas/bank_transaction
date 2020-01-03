@@ -13,7 +13,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.inject.Inject;
@@ -86,8 +87,11 @@ public class TransactionCreateController {
   }
 
   Response generate201Response() {
+    String pattern = "yyyy-MM-dd";
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
     CreateTransactionResponse transactionResponse = new CreateTransactionResponse();
-    transactionResponse.setDateTime(LocalDateTime.now());
+    transactionResponse.setDate(simpleDateFormat.format(new Date()));
     transactionResponse.setMsg("Transaction has been created.");
     return Response.status(201)
         .entity(transactionResponse).build();

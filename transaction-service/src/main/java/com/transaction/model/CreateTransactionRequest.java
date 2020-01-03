@@ -16,28 +16,28 @@ import lombok.NoArgsConstructor;
 @Schema(description = "The Request body for Creating the transaction.")
 public class CreateTransactionRequest {
 
-  @Schema(description = "The username of the customer creating the transaction.")
+  @Schema(description = "The username of the customer creating the transaction.", required = true)
   private String username;
 
-  @Schema(description = "The password of the customer creating the transaction.")
+  @Schema(description = "The password of the customer creating the transaction.", required = true)
   private String pin;
 
-  @Schema(description = "The iban of sender.")
+  @Schema(description = "The iban of sender.", required = true)
   private String fromIban;
 
-  @Schema(description = "The iban of receiver.")
+  @Schema(description = "The iban of receiver.", required = true)
   private String toIban;
 
-  @Schema(description = "The amount for transaction.", minimum = "1")
+  @Schema(description = "The amount for transaction.", minimum = "1", required = true)
   private Double amount;
 
-  @Schema(description = "The transaction Message.")
+  @Schema(description = "The transaction Message.", required = true)
   private String transactionMessage;
 
-  @Schema(description = "The reference for the transaction.")
+  @Schema(description = "The reference for the transaction.", required = true)
   private String transactionReference;
 
-  @Schema(description = "The transaction date in format of YYYY-MM-DD. Only future transactions are supported.")
+  @Schema(description = "The transaction date in format of YYYY-MM-DD. Only future transactions are supported.", required = true)
   private Date transactionDate;
 
 }

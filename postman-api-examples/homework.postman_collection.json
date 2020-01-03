@@ -47,7 +47,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n \"username\":\"aliilyas\",\n\"pin\":\"ma420\",\n \"fromIban\":\"DE75512108001245126199\",\n\"toIban\":\"DE12500105170648489890\",\n \"amount\":1000000,\n\"transactionMessage\":\"Paying to Goethe\",\n  \"transactionReference\":\"12345678\",\n  \"transactionDate\":\"2020-01-03\"\n\n}"
+					"raw": "{\n \"username\":\"goethe\",\n\"pin\":\"faust123\",\n \"fromIban\":\"DE12500105170648489890\",\n\"toIban\":\"DE75512108001245126199\",\n \"amount\":1050,\n\"transactionMessage\":\"Paying to Ali\",\n  \"transactionReference\":\"123456789\",\n  \"transactionDate\":\"2020-12-11\"\n\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8989/create-transaction",

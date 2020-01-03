@@ -16,12 +16,12 @@ import lombok.NoArgsConstructor;
 @Schema(description = "The Request body for Check Balance.")
 public class CheckBalanceRequest {
 
-  @Schema(description = "The username of the customer.")
+  @Schema(description = "The username of the customer.", required = true)
   private String username;
 
-  @Schema(description = "The password of the customer.")
+  @Schema(description = "The password of the customer.", required = true)
   private String pin;
 
-  @Schema(description = "The iban of customer.")
+  @Schema(description = "The iban of customer.", required = true)
   private String iban;
 }

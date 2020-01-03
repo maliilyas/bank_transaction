@@ -23,6 +23,21 @@
       <artifactId>cucumber-java</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -68,7 +83,7 @@
           <stopKey>stop</stopKey>
           <stopPort>9099</stopPort>
           <httpConnector>
-            <port>8990</port>
+            <port>9090</port>
           </httpConnector>
         </configuration>
         <executions>
