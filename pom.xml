@@ -23,19 +23,32 @@
     <jackson-version>2.10.1</jackson-version>
     <swagger3.core-version>2.0.0</swagger3.core-version>
     <javax.servlet-version>3.1.0</javax.servlet-version>
-    <junit-version>4.12</junit-version>
-    <commons-version>2.6</commons-version>
-    <org.json-version>20190722</org.json-version>
-    <http.client-version>4.5.10</http.client-version>
-    <cucumber-version>4.8.0</cucumber-version>
+    <validation-version>1.1.0.Final</validation-version>
+
     <logback-version>1.1.6</logback-version>
     <logstash-version>6.2</logstash-version>
-    <validation-version>1.1.0.Final</validation-version>
     <org.projectlombok.lombok.version>1.16.20.0</org.projectlombok.lombok.version>
     <jooq-version>3.12.3</jooq-version>
     <h2db.version>1.4.200</h2db.version>
     <hikari.pool-version>3.4.1</hikari.pool-version>
     <apache.commons.validator-version>1.6</apache.commons.validator-version>
+
+    <jetty.maven.plugin-version>9.4.9.v20180320</jetty.maven.plugin-version>
+    <sql.maven.plugin-version>1.5</sql.maven.plugin-version>
+    <properties.maven.plugin-version>1.0.0</properties.maven.plugin-version>
+    <maven.complier.plugin-version>3.8.1</maven.complier.plugin-version>
+    <maven.enforcer.plugin-version>1.4.1</maven.enforcer.plugin-version>
+    <maven.war.plugin-version>2.4</maven.war.plugin-version>
+
+    <junit-version>4.12</junit-version>
+    <commons-version>2.6</commons-version>
+    <org.json-version>20190722</org.json-version>
+    <http.client-version>4.5.10</http.client-version>
+    <cucumber-version>4.8.0</cucumber-version>
+    <failsafe.plugin-version>2.22.2</failsafe.plugin-version>
+
+    <jetty.server.port>8989</jetty.server.port>
+    <jetty.server.test.port>9090</jetty.server.test.port>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -71,21 +84,6 @@
           <exclusion>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>io.swagger.core.v3</groupId>
-        <artifactId>swagger-jaxrs2-servlet-initializer</artifactId>
-        <version>${swagger3.core-version}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
           </exclusion>
         </exclusions>
       </dependency>

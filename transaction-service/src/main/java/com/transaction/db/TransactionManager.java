@@ -14,6 +14,7 @@ public class TransactionManager {
 
   /**
    * The transaction Manager for doing a transaction
+   *
    * @param transaction the transaction request body.
    * @param transactionId the transaction id.
    */
@@ -27,9 +28,10 @@ public class TransactionManager {
           .where(CUSTOMER_ACCOUNT.IBAN.eq(transaction.getFromIban())).fetch();
 
       if (fromCustomerRecords.isEmpty() || fromCustomerRecords.get(0) == null) {
-        updateTransactionStatus(TransactionStatus.DENIED, "Sender Customer does not exist or wrong credentials.", transactionId);
+        updateTransactionStatus(TransactionStatus.DENIED,
+            "Sender Customer does not exist or wrong credentials.", transactionId);
         throw new DbException(
-            "Transaction can not follow since sender customer does not exist or wrong credentials are provided.");
+            "Transaction can not be done since sender customer does not exist or wrong credentials are provided.");
       }
 
       Record fromCustomerRecord = fromCustomerRecords.get(0);
@@ -37,7 +39,9 @@ public class TransactionManager {
       double fromCustomerBalanceAfterTransaction =
           fromCustomerRecord.get(CUSTOMER_ACCOUNT.BALANCE) - transaction.getAmount();
       if (fromCustomerBalanceAfterTransaction < 0) {
-        updateTransactionStatus(TransactionStatus.DENIED, "More Taxes and less salary made Jack a poor guy", transactionId);
+        updateTransactionStatus(TransactionStatus.DENIED,
+            "More Taxes and less salary made Jack a poor guy, not enough balance to make transaction.",
+            transactionId);
         throw new DbException(
             "Money can't buy love but you do not have enough to make this transaction.");
       }
@@ -65,11 +69,12 @@ public class TransactionManager {
 
   /**
    * Updating the transaction Status.
+   *
    * @param transactionStatus the status of transaction.
    * @param msg the message explaining the transaction's status.
    * @param transactionId the transaction id.
    */
-  static void  updateTransactionStatus(final TransactionStatus transactionStatus, final String msg,
+  static void updateTransactionStatus(final TransactionStatus transactionStatus, final String msg,
       final long transactionId) {
     DbHandler.getInstance().dslContext().update(CUSTOMER_TRANSACTION)
         .set(CUSTOMER_TRANSACTION.TRANSACTION_STATUS, transactionStatus.name())

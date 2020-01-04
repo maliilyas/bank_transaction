@@ -45,9 +45,8 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>2.22.2</version>
+        <version>${failsafe.plugin-version}</version>
         <configuration>
-          <forkCount>2C</forkCount>
           <reuseForks>false</reuseForks>
           <excludes>
             <exclude>none</exclude>
@@ -65,9 +64,10 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
-        <version>2.4</version>
+        <version>${maven.war.plugin-version}</version>
         <configuration>
           <warSourceDirectory>WebContent</warSourceDirectory>
           <failOnMissingWebXml>false</failOnMissingWebXml>
@@ -77,13 +77,13 @@
       <plugin>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
-        <version>9.4.24.v20191120</version>
+        <version>${jetty.maven.plugin-version}</version>
         <configuration>
           <war>../transaction-service/target/transaction-service.war</war>
           <stopKey>stop</stopKey>
           <stopPort>9099</stopPort>
           <httpConnector>
-            <port>9090</port>
+            <port>${jetty.server.test.port}</port>
           </httpConnector>
         </configuration>
         <executions>
@@ -107,9 +107,8 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.3</version>
+        <version>${maven.complier.plugin-version}</version>
         <configuration>
-          <encoding>UTF-8</encoding>
           <source>${java.version}</source>
           <target>${java.version}</target>
         </configuration>
