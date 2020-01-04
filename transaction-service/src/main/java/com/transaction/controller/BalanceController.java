@@ -8,12 +8,14 @@ import com.google.common.base.Strings;
 import com.transaction.model.CheckBalanceRequest;
 
 import com.transaction.model.CheckBalanceResponse;
+import com.transaction.service.ValidationTransactionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
+import javax.inject.Inject;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -26,6 +28,13 @@ import org.jooq.Record;
 @Produces({"application/json"})
 @Slf4j
 public class BalanceController {
+
+  private final ValidationTransactionService validationTransactionService;
+
+  @Inject
+  public BalanceController(final ValidationTransactionService validationTransactionService) {
+    this.validationTransactionService = validationTransactionService;
+  }
 
   @POST
   @Operation(summary = "Check the balance of a customer.",
@@ -44,7 +53,7 @@ public class BalanceController {
 
     log.info("Request for check balance.", kv("request", body));
     final String isValidOrError = isValidRequestBody(body);
-    if (! "true".equals(isValidOrError)) {
+    if (!"true".equals(isValidOrError)) {
       return generateErrorResponse("Bad Request: " + isValidOrError, 400);
     }
 
@@ -94,10 +103,10 @@ public class BalanceController {
     }
 
     if (Strings.isNullOrEmpty(requestBody.getIban())) {
-        return "Iban can not be null or empty.";
+      return "Iban can not be null or empty.";
     }
 
-    if (! new IBANCheckDigit().isValid(requestBody.getIban())) {
+    if (!validationTransactionService.isValidToIban(requestBody.getIban())) {
       return "Not a valid German Iban.";
     }
 

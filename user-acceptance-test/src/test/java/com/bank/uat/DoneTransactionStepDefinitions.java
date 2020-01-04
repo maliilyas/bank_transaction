@@ -25,7 +25,7 @@ public class DoneTransactionStepDefinitions {
 
     goetheBalanceBeforeTransaction = bankHttpClient
         .getBalance("goethe", "faust123", "DE12500105170648489890");
-    assertEquals(10000000000D, goetheBalanceBeforeTransaction, 0);
+    assertEquals(10000000D, goetheBalanceBeforeTransaction, 0);
   }
 
   @When("Goethe creates a transaction of (.*) EUR for Ali")

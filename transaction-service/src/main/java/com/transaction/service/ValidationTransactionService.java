@@ -21,7 +21,7 @@ public interface ValidationTransactionService {
   boolean isValidToIban(final String toIBan);
 
   /**
-   * Checks whether the Date is valid. Only future transactions are valid.
+   * Checks whether the Date is valid. Now and future transactions are valid.
    *
    * @param transactionDate the transaction date.
    */

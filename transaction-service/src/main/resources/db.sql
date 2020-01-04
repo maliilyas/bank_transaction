@@ -40,7 +40,7 @@ VALUES (1, 'aliilyas', 'ali786', 'DE75512108001245126199', 6564.45, 'EUR')
 ;
 
 INSERT INTO customer_account
-VALUES (2, 'goethe', 'faust123', 'DE12500105170648489890', 10000000000, 'EUR')
+VALUES (2, 'goethe', 'faust123', 'DE12500105170648489890', 10000000, 'EUR')
 ;
 
 INSERT INTO customer_account

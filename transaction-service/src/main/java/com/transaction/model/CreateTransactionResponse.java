@@ -20,7 +20,7 @@ public class CreateTransactionResponse {
   @Schema(description = "The message about transaction.", required = true)
   private String msg;
 
-  @Schema(description = "Date of creation for the transaction in YYYY-MM-DD format", required = true)
+  @Schema(description = "Date of creation for the transaction in yyyy-MM-dd format.", required = true)
   private String date;
 
 }

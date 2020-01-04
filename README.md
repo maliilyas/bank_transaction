@@ -2,7 +2,7 @@
 This is intended to show simple working of a bank in terms of transaction. The following usecases are entertained:
 * Predefined users for sake of simplicity no api for creating a customer is defined. It is assumed that username are unique so no validation is done if we have more than the same usernames.
 * Validation of Iban, for simplicity only Iban in Germany are allowed.
-* Validation for Transaction's time, only future transactions are entertained, but they are not scheduled for sake of simplicity.
+* Validation for Transaction's time, now and future transactions are entertained, but they are not scheduled for sake of simplicity.
 * For simplicity, only EURO currency is supported.
 ## Technologies
 Respecting the requirements, the following technologies are used:
@@ -19,6 +19,10 @@ Technology/Framework|Reason
 [Logstash](https://github.com/logstash/logstash-logback-encoder)| Log stash for structured logging and appending the old logs.
 [H2 Database](https://www.h2database.com/html/main.html)| H2 engine for in memory database.
 [Maven3](https://maven.apache.org/download.cgi)| For project management, build, packaging and dependency management.
+
+#Testing the Service
+The service is generated with respect to Acceptance Test Driven Development, the reason being to have a service complying towards user's acceptance. Also in my view ATDD reduces a lot of boiler plate testing using mocks.
+The internal logic of backend apart from Database integration is been tested via Unit Testing
 
 ## Scenario 1
 Wolfgang Goethe owns Ali some money which he borrowed from him while compiling the Young Werther. After becoming famous writer, now he wants to payback Ali. Both are customer of 'Homework Bank' and are living in Germany.

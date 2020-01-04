@@ -37,7 +37,7 @@ public class CreateTransactionRequest {
   @Schema(description = "The reference for the transaction.", required = true)
   private String transactionReference;
 
-  @Schema(description = "The transaction date in format of YYYY-MM-DD. Only future transactions are supported.", required = true)
+  @Schema(description = "The transaction date in format of yyyy-MM-dd. Now and future transactions are supported.", required = true)
   private Date transactionDate;
 
 }

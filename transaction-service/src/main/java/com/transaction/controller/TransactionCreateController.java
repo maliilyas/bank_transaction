@@ -23,7 +23,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
 
 /**
  * Controller for the transaction handling
@@ -67,7 +66,7 @@ public class TransactionCreateController {
 
     if (!validationTransactionService.isValidDate(body.getTransactionDate())) {
       return generateNon201Response(
-          "Transaction Date is wrong, only future transactions are supported.", 200);
+          "Transaction Date is wrong, now and future transactions are supported.", 200);
     }
 
     long transactionId = DbUtil.createTransaction(body);
@@ -120,12 +119,16 @@ public class TransactionCreateController {
       return "Iban can not be null or empty.";
     }
 
-    if (!new IBANCheckDigit().isValid(requestBody.getToIban()) ) {
+    if (! validationTransactionService.isValidToIban(requestBody.getToIban()) ) {
       return "Not a valid German Receiver Iban.";
     }
 
-    if (!new IBANCheckDigit().isValid(requestBody.getFromIban()) ) {
+    if (! validationTransactionService.isValidToIban(requestBody.getFromIban()) ) {
       return "Not a valid German Sender Iban.";
+    }
+
+    if (requestBody.getFromIban().equalsIgnoreCase(requestBody.getToIban())) {
+      return "self transaction is not allowed.";
     }
 
     if (requestBody.getAmount() == null) {
