@@ -25,7 +25,7 @@
     <javax.servlet-version>3.1.0</javax.servlet-version>
     <validation-version>1.1.0.Final</validation-version>
 
-    <logback-version>1.1.6</logback-version>
+    <logback-version>1.2.0</logback-version>
     <logstash-version>6.2</logstash-version>
     <org.projectlombok.lombok.version>1.16.20.0</org.projectlombok.lombok.version>
     <jooq-version>3.12.3</jooq-version>
