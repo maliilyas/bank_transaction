@@ -29,7 +29,7 @@
     <logstash-version>6.2</logstash-version>
     <org.projectlombok.lombok.version>1.16.20.0</org.projectlombok.lombok.version>
     <jooq-version>3.12.3</jooq-version>
-    <h2db.version>1.4.200</h2db.version>
+    <h2db.version>2.0.206</h2db.version>
     <hikari.pool-version>3.4.1</hikari.pool-version>
     <apache.commons.validator-version>1.6</apache.commons.validator-version>
 
